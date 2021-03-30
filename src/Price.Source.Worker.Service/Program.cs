@@ -1,9 +1,12 @@
 using Confluent.Kafka;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Price.DataAccess.File.Csv.Config;
+using Price.DataAccess.File.Csv.DependencyInjection;
+using Price.DataModel;
 using Price.Source.Worker.Service.Interfaces;
 using Price.Source.Worker.Service.Interfaces.Kafka;
-using Price.Source.Worker.Service.Model;
 using Price.Source.Worker.Service.Services;
 using Price.Source.Worker.Service.Services.Kafka;
 
@@ -20,8 +23,11 @@ namespace Price.Source.Worker.Service
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
+                    services.AddLogging(logBuilder => logBuilder.AddConsole());
+                    services.AddDataAccessCsvLibrary(hostContext.Configuration);
+
+
                     services.AddTransient<IPriceRandomizer, PriceRandomizer>();
-                    services.AddTransient<ICurrencyDataProvider, CurrencyDataProvider>();
                     services.AddSingleton<IKafkaClientHandle, KafkaClientHandle>();
                     services.AddSingleton<IKafkaSchemaRegistryClientHandle, CachedSchemaRegistryClientHandle>();
                     services.AddTransient<IKafkaJsonSerializerFactory, KafkaJsonSerializerFactory>();

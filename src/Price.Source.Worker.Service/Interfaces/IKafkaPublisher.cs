@@ -1,4 +1,5 @@
-﻿using Price.Source.Worker.Service.Model;
+﻿
+using Price.DataModel;
 
 namespace Price.Source.Worker.Service.Interfaces
 {

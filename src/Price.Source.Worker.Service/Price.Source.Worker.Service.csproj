@@ -13,12 +13,25 @@
     <PackageReference Include="Confluent.SchemaRegistry.Serdes.Json" Version="1.6.3" />
     <PackageReference Include="CsvHelper" Version="26.1.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.8" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Data\seed_rates.csv">
+    <ProjectReference Include="..\..\Price.DataModel\Price.DataModel.csproj" />
+    <ProjectReference Include="..\Price.DataAccess.File.Csv\Price.DataAccess.File.Csv.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\Price.DataAccess.File.Csv\Files\currency.csv" Link="Data\currency.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Price.DataAccess.File.Csv\Files\currencyRate.csv" Link="Data\currencyRate.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

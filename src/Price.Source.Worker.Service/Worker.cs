@@ -1,9 +1,10 @@
 using Confluent.Kafka;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Price.DataAccess.Abstractions;
+using Price.DataModel;
 using Price.Source.Worker.Service.Interfaces;
 using Price.Source.Worker.Service.Interfaces.Kafka;
-using Price.Source.Worker.Service.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,7 @@ namespace Price.Source.Worker.Service
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var rates = _currencyDataProvider.GetRates();
+            var rates = _currencyDataProvider.GetRates().ToList();
 
             while (!stoppingToken.IsCancellationRequested)
             {
