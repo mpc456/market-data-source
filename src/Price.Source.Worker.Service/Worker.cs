@@ -5,7 +5,6 @@ using Price.DataAccess.Abstractions;
 using Price.DataModel;
 using Price.Source.Worker.Service.Interfaces;
 using Price.Source.Worker.Service.Interfaces.Kafka;
-using Price.Source.Worker.Service.Interfaces.Kafka;
 using System;
 using System.Collections.Generic;
 using System.Linq;

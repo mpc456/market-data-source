@@ -7,7 +7,6 @@ using Price.DataAccess.File.Csv.DependencyInjection;
 using Price.DataModel;
 using Price.Source.Worker.Service.Interfaces;
 using Price.Source.Worker.Service.Interfaces.Kafka;
-using Price.Source.Worker.Service.Model;
 using Price.Source.Worker.Service.Services;
 using Price.Source.Worker.Service.Services.Kafka;
 
