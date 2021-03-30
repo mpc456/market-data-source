@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Price.DataModel\Price.DataModel.csproj" />
     <ProjectReference Include="..\Price.DataAccess.Abstractions\Price.DataAccess.Abstractions.csproj" />
   </ItemGroup>
 

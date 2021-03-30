@@ -19,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Price.DataModel\Price.DataModel.csproj" />
     <ProjectReference Include="..\Price.DataAccess.File.Csv\Price.DataAccess.File.Csv.csproj" />
     <ProjectReference Include="..\Price.DataModel.Kafka\Price.DataModel.Kafka.csproj" />
   </ItemGroup>
