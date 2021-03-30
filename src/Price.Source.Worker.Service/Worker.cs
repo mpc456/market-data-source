@@ -1,6 +1,8 @@
+using Confluent.Kafka;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Price.Source.Worker.Service.Interfaces;
+using Price.Source.Worker.Service.Interfaces.Kafka;
 using Price.Source.Worker.Service.Model;
 using System;
 using System.Collections.Generic;
@@ -14,14 +16,17 @@ namespace Price.Source.Worker.Service
     {
         private readonly ICurrencyDataProvider _currencyDataProvider;
         private readonly IPriceRandomizer _priceRandomizer;
+        private readonly IKafkaDependentProducer<string, CurrencyRate> _kafkaPublisher;
         private readonly ILogger<Worker> _logger;
 
         public Worker(ICurrencyDataProvider currencyDataProvider, 
-            IPriceRandomizer priceRandomizer, 
+            IPriceRandomizer priceRandomizer,
+            IKafkaDependentProducer<string, CurrencyRate> kafkaPublisher,
             ILogger<Worker> logger)
         {
             _currencyDataProvider = currencyDataProvider;
             _priceRandomizer = priceRandomizer;
+            _kafkaPublisher = kafkaPublisher;
             _logger = logger;
         }
 
@@ -55,6 +60,15 @@ namespace Price.Source.Worker.Service
             foreach(var rate in rates)
             {
                 _logger.LogInformation($"{rate.From}->{rate.To}:{rate.Rate}");
+            }
+        }
+
+        private void PublisherRates(List<CurrencyRate> rates)
+        {
+            foreach (var rate in rates)
+            {
+                var message = new Message<string, CurrencyRate>() { Key = $"{rate.From}->{rate.To}:{rate.Rate}", Value = rate };
+                _kafkaPublisher.Produce("currency-rates", message);
             }
         }
     }
