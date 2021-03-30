@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Price.DataAccess.File.Csv.Config;
 using Price.DataAccess.File.Csv.DependencyInjection;
 using Price.DataModel;
+using Price.DataModel.Kafka.DependencyInjection;
 using Price.Source.Worker.Service.Interfaces;
 using Price.Source.Worker.Service.Interfaces.Kafka;
 using Price.Source.Worker.Service.Services;
@@ -25,18 +26,13 @@ namespace Price.Source.Worker.Service
                 {
                     services.AddLogging(logBuilder => logBuilder.AddConsole());
                     services.AddDataAccessCsvLibrary(hostContext.Configuration);
+                    services.AddKafkaDataModelLibrary(hostContext.Configuration);
 
 
                     services.AddTransient<IPriceRandomizer, PriceRandomizer>();
                     services.AddSingleton<IKafkaClientHandle, KafkaClientHandle>();
-                    services.AddSingleton<IKafkaSchemaRegistryClientHandle, CachedSchemaRegistryClientHandle>();
-                    services.AddTransient<IKafkaJsonSerializerFactory, KafkaJsonSerializerFactory>();
                     services.AddSingleton<IKafkaClientHandle, KafkaClientHandle>();
-                    services.AddSingleton<IKafkaSchemaRegistryClientHandle, CachedSchemaRegistryClientHandle>();
-                    services.AddTransient<IKafkaJsonSerializerFactory, KafkaJsonSerializerFactory>();
-                    services.AddSingleton<IKafkaDependentProducer<string, CurrencyRate>, KafkaDependentProducer<string, CurrencyRate>>();
 
-                    services.AddTransient<IAsyncSerializer<CurrencyRate>>(sp => sp.GetRequiredService<IKafkaJsonSerializerFactory>().Create<CurrencyRate>());
 
                     services.AddHostedService<Worker>();
                 });
