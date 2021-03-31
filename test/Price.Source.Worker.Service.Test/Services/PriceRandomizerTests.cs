@@ -1,7 +1,7 @@
 ﻿using Price.Source.Worker.Service.Services;
 using Xunit;
 
-namespace Price.Source.Worker.Service.Test
+namespace Price.Source.Worker.Service.Test.Services
 {
     public class PriceRandomizerTests
     {

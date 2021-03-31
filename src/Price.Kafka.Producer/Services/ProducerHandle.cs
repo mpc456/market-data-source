@@ -1,8 +1,10 @@
 ﻿using Confluent.Kafka;
-using Microsoft.Extensions.Configuration;
+using Price.Kafka.Producer.Config;
+using Price.Kafka.Producer.Interfaces;
 using System;
+using JetBrains.Annotations;
 
-namespace Price.Source.Worker.Service.Services.Kafka
+namespace Price.Kafka.Producer.Services
 {
 
     /// <summary>
@@ -18,29 +20,25 @@ namespace Price.Source.Worker.Service.Services.Kafka
     ///     Confluent.Kafka.IProducer instances for each Message type you wish to
     ///     produce.
     /// </summary>
-    public class KafkaClientHandle : IDisposable, IKafkaClientHandle
+    public class ProducerHandle : IDisposable, IProducerHandle
     {
-        IProducer<byte[], byte[]> kafkaProducer;
+        [NotNull] private readonly IProducer<byte[], byte[]> _kafkaProducer;
 
-        public KafkaClientHandle()
+        public ProducerHandle([NotNull] KafkaProducerConfig config)
         {
-            var config = new ProducerConfig
-            {
-                BootstrapServers = "localhost:9092",
-                ClientId = "Price-source",
-            };
+            if (config == null) throw new ArgumentNullException(nameof(config));
 
-            kafkaProducer = new ProducerBuilder<byte[], byte[]>(config).Build();
+            _kafkaProducer = new ProducerBuilder<byte[], byte[]>(config.Config).Build();
         }
 
-        public Handle Handle { get => kafkaProducer.Handle; }
+        public Handle Handle => _kafkaProducer.Handle;
 
         public void Dispose()
         {
             // Block until all outstanding produce requests have completed (with or
             // without error).
-            kafkaProducer.Flush();
-            kafkaProducer.Dispose();
+            _kafkaProducer.Flush();
+            _kafkaProducer.Dispose();
         }
     }
 

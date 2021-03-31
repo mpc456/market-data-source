@@ -3,8 +3,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Price.DataAccess.Abstractions;
 using Price.DataModel;
+using Price.Kafka.Producer.Interfaces;
 using Price.Source.Worker.Service.Interfaces;
-using Price.Source.Worker.Service.Interfaces.Kafka;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +17,12 @@ namespace Price.Source.Worker.Service
     {
         private readonly ICurrencyDataProvider _currencyDataProvider;
         private readonly IPriceRandomizer _priceRandomizer;
-        private readonly IKafkaDependentProducer<string, CurrencyRate> _kafkaPublisher;
+        private readonly IDependentProducer<string, CurrencyRate> _kafkaPublisher;
         private readonly ILogger<Worker> _logger;
 
         public Worker(ICurrencyDataProvider currencyDataProvider, 
             IPriceRandomizer priceRandomizer,
-            IKafkaDependentProducer<string, CurrencyRate> kafkaPublisher,
+            IDependentProducer<string, CurrencyRate> kafkaPublisher,
             ILogger<Worker> logger)
         {
             _currencyDataProvider = currencyDataProvider;

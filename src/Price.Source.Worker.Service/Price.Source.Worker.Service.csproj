@@ -12,6 +12,7 @@
     <PackageReference Include="Confluent.SchemaRegistry" Version="1.6.3" />
     <PackageReference Include="Confluent.SchemaRegistry.Serdes.Json" Version="1.6.3" />
     <PackageReference Include="CsvHelper" Version="26.1.0" />
+    <PackageReference Include="JetBrains.Annotations" Version="2020.3.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.8" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
@@ -21,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Price.DataAccess.File.Csv\Price.DataAccess.File.Csv.csproj" />
     <ProjectReference Include="..\Price.DataModel.Kafka\Price.DataModel.Kafka.csproj" />
+    <ProjectReference Include="..\Price.Kafka.Producer\Price.Kafka.Producer.csproj" />
   </ItemGroup>
 
   <ItemGroup>
