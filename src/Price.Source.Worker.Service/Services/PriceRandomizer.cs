@@ -8,10 +8,11 @@ namespace Price.Source.Worker.Service.Services
         /// <summary>
         /// </summary>
         /// <param name="original"></param>
+        /// <param name="volatility"></param>
         /// <returns></returns>
-        public decimal GetNext(decimal original, int volitility)
+        public decimal GetNext(decimal original, int volatility)
         {
-            var random = new Random().Next(-volitility, volitility);
+            var random = new Random().Next(-volatility, volatility);
             var percentageChange = original / 100 * random;
 
             var nextPrice = original + percentageChange;

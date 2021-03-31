@@ -2,6 +2,6 @@
 {
     public interface IPriceRandomizer
     {
-        decimal GetNext(decimal original, int volitility);
+        decimal GetNext(decimal original, int volatility);
     }
 }

@@ -31,7 +31,7 @@
 
   <ItemGroup>
     <None Include="..\Price.DataAccess.File.Csv\Files\currency.csv" Link="Data\currency.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="..\Price.DataAccess.File.Csv\Files\currencyRate.csv" Link="Data\currencyRate.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
