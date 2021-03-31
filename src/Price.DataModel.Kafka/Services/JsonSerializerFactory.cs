@@ -7,8 +7,8 @@ namespace Price.DataModel.Kafka.Services
 {
     public class JsonSerializerFactory : ISerializerFactory
     {
-        private readonly ISchemaRegistryClientHandle _registryHandle;
         private readonly JsonSerializerConfig _jsonSerializerConfig;
+        private readonly ISchemaRegistryClientHandle _registryHandle;
 
         public JsonSerializerFactory(ISchemaRegistryClientHandle registryHandle, KafkaDataModelConfig config)
         {

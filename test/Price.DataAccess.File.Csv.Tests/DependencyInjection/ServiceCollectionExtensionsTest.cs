@@ -1,13 +1,11 @@
-﻿using CsvHelper.Configuration;
+﻿using System;
+using CsvHelper.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Price.DataAccess.Abstractions;
 using Price.DataAccess.File.Csv.Config;
 using Price.DataAccess.File.Csv.DependencyInjection;
 using Price.DataModel;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace Price.DataAccess.File.Csv.Tests.DependencyInjection

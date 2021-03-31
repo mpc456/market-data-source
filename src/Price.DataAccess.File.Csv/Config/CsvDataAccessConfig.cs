@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Price.DataAccess.File.Csv.Config
+﻿namespace Price.DataAccess.File.Csv.Config
 {
     public class CsvDataAccessConfig
     {

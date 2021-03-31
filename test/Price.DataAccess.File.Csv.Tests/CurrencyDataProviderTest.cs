@@ -1,10 +1,9 @@
+using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Price.DataAccess.Abstractions;
 using Price.DataAccess.File.Csv.Config;
 using Price.DataAccess.File.Csv.DependencyInjection;
-using System;
-using System.Linq;
 using Xunit;
 
 namespace Price.DataAccess.File.Csv.Tests
@@ -15,7 +14,7 @@ namespace Price.DataAccess.File.Csv.Tests
 
         public CurrencyDataProviderTest()
         {
-            var config = new CsvDataAccessConfig()
+            var config = new CsvDataAccessConfig
             {
                 CurrencyPath = @"Files\currency.csv",
                 CurrencyRatePath = @"Files\currencyRate.csv"
@@ -37,7 +36,6 @@ namespace Price.DataAccess.File.Csv.Tests
             Assert.Contains(currencies, currency => currency.Code.Equals("EUR"));
             Assert.Contains(currencies, currency => currency.Code.Equals("USD"));
             Assert.Contains(currencies, currency => currency.Code.Equals("JPY"));
-
         }
 
         [Fact]

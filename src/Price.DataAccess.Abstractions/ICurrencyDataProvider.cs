@@ -1,5 +1,5 @@
-﻿using Price.DataModel;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Price.DataModel;
 
 namespace Price.DataAccess.Abstractions
 {

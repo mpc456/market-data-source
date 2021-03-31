@@ -1,26 +1,24 @@
-﻿using Confluent.SchemaRegistry;
-using Microsoft.Extensions.Configuration;
+﻿using System;
+using Confluent.SchemaRegistry;
 using Price.DataModel.Kafka.Config;
 using Price.DataModel.Kafka.Interfaces;
-using System;
 
 namespace Price.DataModel.Kafka.Services
 {
     public class CachedSchemaRegistryClientHandle : IDisposable, ISchemaRegistryClientHandle
     {
-        readonly CachedSchemaRegistryClient schemaRegistryClient;
+        private readonly CachedSchemaRegistryClient schemaRegistryClient;
 
         public CachedSchemaRegistryClientHandle(KafkaDataModelConfig config)
         {
             schemaRegistryClient = new CachedSchemaRegistryClient(config.SchemaRegistry);
         }
 
-        public ISchemaRegistryClient Handle { get => schemaRegistryClient; }
-
         public void Dispose()
         {
             schemaRegistryClient.Dispose();
         }
-    }
 
+        public ISchemaRegistryClient Handle => schemaRegistryClient;
+    }
 }

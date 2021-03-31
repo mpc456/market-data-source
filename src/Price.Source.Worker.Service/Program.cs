@@ -16,8 +16,9 @@ namespace Price.Source.Worker.Service
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            return Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddLogging(logBuilder => logBuilder.AddConsole());
@@ -27,5 +28,6 @@ namespace Price.Source.Worker.Service
                     services.AddTransient<IPriceRandomizer, PriceRandomizer>();
                     services.AddHostedService<Worker>();
                 });
+        }
     }
 }

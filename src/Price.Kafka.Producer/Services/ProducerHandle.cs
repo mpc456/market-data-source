@@ -1,16 +1,14 @@
-﻿using Confluent.Kafka;
+﻿using System;
+using Confluent.Kafka;
+using JetBrains.Annotations;
 using Price.Kafka.Producer.Config;
 using Price.Kafka.Producer.Interfaces;
-using System;
-using JetBrains.Annotations;
 
 namespace Price.Kafka.Producer.Services
 {
-
     /// <summary>
     ///     Wraps a Confluent.Kafka.IProducer instance, and allows for basic
     ///     configuration of this via IConfiguration.
-    ///    
     ///     KafkaClientHandle does not provide any way for messages to be produced
     ///     directly. Instead, it is a dependency of KafkaDependentProducer. You
     ///     can create more than one instance of KafkaDependentProducer (with
@@ -31,8 +29,6 @@ namespace Price.Kafka.Producer.Services
             _kafkaProducer = new ProducerBuilder<byte[], byte[]>(config.Config).Build();
         }
 
-        public Handle Handle => _kafkaProducer.Handle;
-
         public void Dispose()
         {
             // Block until all outstanding produce requests have completed (with or
@@ -40,6 +36,7 @@ namespace Price.Kafka.Producer.Services
             _kafkaProducer.Flush();
             _kafkaProducer.Dispose();
         }
-    }
 
+        public Handle Handle => _kafkaProducer.Handle;
+    }
 }

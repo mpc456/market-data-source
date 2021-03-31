@@ -1,12 +1,10 @@
-﻿using Confluent.Kafka;
+﻿using System;
+using Confluent.Kafka;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Price.DataModel.Kafka.Config;
 using Price.DataModel.Kafka.DependencyInjection;
 using Price.DataModel.Kafka.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace Price.DataModel.Kafka.Test.DependencyInjection

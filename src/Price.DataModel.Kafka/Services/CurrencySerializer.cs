@@ -1,6 +1,6 @@
-﻿using Confluent.Kafka;
+﻿using System.Threading.Tasks;
+using Confluent.Kafka;
 using Price.DataModel.Kafka.Interfaces;
-using System.Threading.Tasks;
 
 namespace Price.DataModel.Kafka.Services
 {

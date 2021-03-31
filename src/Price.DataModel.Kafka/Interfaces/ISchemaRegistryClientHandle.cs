@@ -6,5 +6,4 @@ namespace Price.DataModel.Kafka.Interfaces
     {
         ISchemaRegistryClient Handle { get; }
     }
-
 }

@@ -1,31 +1,31 @@
-﻿using CsvHelper;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using CsvHelper;
 using CsvHelper.Configuration;
 using Microsoft.Extensions.Logging;
 using Price.DataAccess.Abstractions;
 using Price.DataAccess.File.Csv.Config;
 using Price.DataModel;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
 
 namespace Price.DataAccess.File.Csv
 {
     public class CurrencyDataProvider : ICurrencyDataProvider
     {
-        private readonly ILogger<CurrencyDataProvider> _logger;
-        private readonly Lazy<List<CurrencyRate>> _currencyRates;
         private readonly Lazy<List<Currency>> _currency;
+        private readonly Lazy<List<CurrencyRate>> _currencyRates;
+        private readonly ILogger<CurrencyDataProvider> _logger;
 
-        public CurrencyDataProvider(CsvDataAccessConfig config, 
-            ClassMap<Currency> currencyClassMap, 
-            ClassMap<CurrencyRate> currencyRateClassMap, 
+        public CurrencyDataProvider(CsvDataAccessConfig config,
+            ClassMap<Currency> currencyClassMap,
+            ClassMap<CurrencyRate> currencyRateClassMap,
             ILogger<CurrencyDataProvider> logger)
         {
             _logger = logger;
-            _currencyRates = CreateLazyInitialization<CurrencyRate>(config.CurrencyRatePath, currencyRateClassMap);
-            _currency = CreateLazyInitialization<Currency>(config.CurrencyPath, currencyClassMap);
+            _currencyRates = CreateLazyInitialization(config.CurrencyRatePath, currencyRateClassMap);
+            _currency = CreateLazyInitialization(config.CurrencyPath, currencyClassMap);
         }
 
         public IEnumerable<Currency> GetCurrencies()
@@ -39,8 +39,8 @@ namespace Price.DataAccess.File.Csv
         }
 
         private Lazy<List<T>> CreateLazyInitialization<T>(string fileName, ClassMap<T> classMap)
-        { 
-            return new Lazy<List<T>>(() => LoadFromFile<T>(fileName, classMap)); 
+        {
+            return new Lazy<List<T>>(() => LoadFromFile(fileName, classMap));
         }
 
 

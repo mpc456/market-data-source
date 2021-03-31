@@ -11,10 +11,7 @@ namespace Price.Source.Worker.Service.Test.Services
             var priceRandomizer = new PriceRandomizer();
             var currentPrice = 100M;
             var volatility = 2;
-            for(int i =0; i< 100; i++)
-            {
-                currentPrice = priceRandomizer.GetNext(currentPrice, volatility);
-            }
+            for (var i = 0; i < 100; i++) currentPrice = priceRandomizer.GetNext(currentPrice, volatility);
         }
     }
 }

@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Confluent.Kafka;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -5,22 +9,17 @@ using Price.DataAccess.Abstractions;
 using Price.DataModel;
 using Price.Kafka.Producer.Interfaces;
 using Price.Source.Worker.Service.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Price.Source.Worker.Service
 {
     public class Worker : BackgroundService
     {
         private readonly ICurrencyDataProvider _currencyDataProvider;
-        private readonly IPriceRandomizer _priceRandomizer;
         private readonly IDependentProducer<string, CurrencyRate> _kafkaPublisher;
         private readonly ILogger<Worker> _logger;
+        private readonly IPriceRandomizer _priceRandomizer;
 
-        public Worker(ICurrencyDataProvider currencyDataProvider, 
+        public Worker(ICurrencyDataProvider currencyDataProvider,
             IPriceRandomizer priceRandomizer,
             IDependentProducer<string, CurrencyRate> kafkaPublisher,
             ILogger<Worker> logger)
@@ -47,28 +46,27 @@ namespace Price.Source.Worker.Service
 
         private List<CurrencyRate> RandomizeRates(List<CurrencyRate> originalRates)
         {
-            List<CurrencyRate> newRates = new List<CurrencyRate>();
-            foreach(var rate in originalRates)
+            var newRates = new List<CurrencyRate>();
+            foreach (var rate in originalRates)
             {
                 var newPrice = _priceRandomizer.GetNext(rate.Rate, 3);
-                newRates.Add(new CurrencyRate() { From = rate.From, To = rate.To, Rate = newPrice });
+                newRates.Add(new CurrencyRate {From = rate.From, To = rate.To, Rate = newPrice});
             }
+
             return newRates;
         }
 
         private void LogRates(List<CurrencyRate> rates)
         {
-            foreach(var rate in rates)
-            {
-                _logger.LogInformation($"{rate.From}->{rate.To}:{rate.Rate}");
-            }
+            foreach (var rate in rates) _logger.LogInformation($"{rate.From}->{rate.To}:{rate.Rate}");
         }
 
         private void PublisherRates(List<CurrencyRate> rates)
         {
             foreach (var rate in rates)
             {
-                var message = new Message<string, CurrencyRate>() { Key = $"{rate.From}->{rate.To}:{rate.Rate}", Value = rate };
+                var message = new Message<string, CurrencyRate>
+                    {Key = $"{rate.From}->{rate.To}:{rate.Rate}", Value = rate};
                 _kafkaPublisher.Produce("currency-rates", message);
             }
         }

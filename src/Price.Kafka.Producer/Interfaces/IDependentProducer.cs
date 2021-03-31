@@ -1,6 +1,6 @@
-﻿using Confluent.Kafka;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Confluent.Kafka;
 using JetBrains.Annotations;
 
 namespace Price.Kafka.Producer.Interfaces
@@ -15,7 +15,8 @@ namespace Price.Kafka.Producer.Interfaces
         ///     if you would like flow of execution to continue immediately, and
         ///     handle delivery information out-of-band.
         /// </summary>
-        void Produce([NotNull] string topic, [NotNull] Message<TKey, TValue> message, [CanBeNull] Action<DeliveryReport<TKey, TValue>> deliveryHandler = null);
+        void Produce([NotNull] string topic, [NotNull] Message<TKey, TValue> message,
+            [CanBeNull] Action<DeliveryReport<TKey, TValue>> deliveryHandler = null);
 
         /// <summary>
         ///     Asynchronously produce a message and expose delivery information

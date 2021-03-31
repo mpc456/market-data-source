@@ -7,5 +7,4 @@ namespace Price.Kafka.Producer.Interfaces
     {
         [NotNull] Handle Handle { get; }
     }
-
 }

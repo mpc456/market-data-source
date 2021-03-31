@@ -1,16 +1,10 @@
 ﻿using Confluent.SchemaRegistry;
 using Confluent.SchemaRegistry.Serdes;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Price.DataModel.Kafka.Config
 {
     public class KafkaDataModelConfig
     {
-        public SchemaRegistryConfig SchemaRegistry { get; set; }
-        public JsonSerializerConfig Json { get; set; }
-
         public KafkaDataModelConfig()
         {
             SchemaRegistry = new SchemaRegistryConfig
@@ -22,5 +16,8 @@ namespace Price.DataModel.Kafka.Config
                 BufferBytes = 100
             };
         }
+
+        public SchemaRegistryConfig SchemaRegistry { get; set; }
+        public JsonSerializerConfig Json { get; set; }
     }
 }

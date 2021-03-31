@@ -1,12 +1,10 @@
-﻿using Confluent.Kafka;
+﻿using System;
+using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Price.DataModel.Kafka.Config;
 using Price.DataModel.Kafka.Interfaces;
 using Price.DataModel.Kafka.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Price.DataModel.Kafka.DependencyInjection
 {
@@ -15,9 +13,10 @@ namespace Price.DataModel.Kafka.DependencyInjection
         public static void AddKafkaDataModelLibrary(this IServiceCollection services, IConfiguration config)
         {
             var modelConfig = config
-                ?.GetSection(nameof(KafkaDataModelConfig))
-                ?.Get<KafkaDataModelConfig>() 
-                ?? throw new ArgumentNullException($"Missing configuration section for {nameof(KafkaDataModelConfig)}");
+                                  ?.GetSection(nameof(KafkaDataModelConfig))
+                                  ?.Get<KafkaDataModelConfig>()
+                              ?? throw new ArgumentNullException(
+                                  $"Missing configuration section for {nameof(KafkaDataModelConfig)}");
 
             services.AddKafkaDataModelLibrary(modelConfig);
         }
